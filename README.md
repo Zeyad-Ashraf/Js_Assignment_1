@@ -1,4 +1,4 @@
-// Assignment 1
+// // Assignment 1
 
 // 1. Create a function that calculates the sum of two given numbers.
 // Input: 3, 5
@@ -42,7 +42,7 @@ console.log(reverseStrings("hello"));
 function largestNumber(arrOfNum) {
     return Math.max(...arrOfNum);
 }
-console.log(largestNumber([1, 3, 7, 2, 4]));
+console.log(largestNumber([90, 60, 7, 50, 100]));
 
 // 5. Write a function that filters an array and returns only the even numbers.
 // Input: [1, 2, 3, 4, 5, 6]
@@ -73,7 +73,7 @@ function calcAverage(array) {
     let sum = 0;
     for (let i = 0; i < array.length; i++)
         sum += array[i];
-    return sum;
+    return sum / array.length;
 }
 console.log(calcAverage([1, 2, 3, 4, 5]));
 
@@ -147,12 +147,7 @@ console.log(objectKeys({ name: "John", age: 30 }))
 // Output: [1, 3, 5]
 
 function uniqueNumbers(array) {
-    let arr = [];
-    for (let i = 0; i < array.length; i++){
-        if (array.indexOf(array[i]) === array.lastIndexOf(array[i]))
-            arr.push(array[i]);
-    }
-    return arr;
+    return array.filter((el) => array.indexOf(el) === array.lastIndexOf(el));
 }
 console.log(uniqueNumbers([1, 2, 2, 3, 4, 4, 5]));
 
@@ -177,11 +172,26 @@ function numberOfChar(prameter) {
 }
 console.log(numberOfChar("hello"));
 
+// chat gpt => best solution
+function numberOfChar(prameter) {
+    let object = {};
+    for (let i = 0; i < prameter.length; i++){
+        let char = prameter[i];
+        if (object[char])
+            object[char]++;
+        else
+            object[char] = 1;
+    }
+    return object;
+}
+console.log(numberOfChar("hello"));
+
 // 15. Write a function that sorts an array of numbers in ascending order.
 // Input: [5, 3, 8, 1, 2]
 // Output: [1, 2, 3, 5, 8]
 
 // by using sort() method
+// ======this method isn't effective======
 let sortingArray = (arr) => arr.sort();
 console.log(sortingArray([5, 3, 8, 1, 2]));
 
@@ -217,11 +227,8 @@ function sameChar(stringOne, stringTwo) {
         lowest = stringOne;
         largest = stringTwo;
     }
-    let haveSameChar = true;
-    for (let i = 0; i < lowest.length; i++){
-        if (!largest.includes(lowest[i]))
-            haveSameChar = false;
-    }
+    let haveSameChar = lowest.split("").every((el) => largest.includes(el));
+    
     return haveSameChar;
 }
 console.log(sameChar("listen", "silent"));
@@ -255,7 +262,7 @@ function createObject(m, y) {
         Year: {
             value: y
         }
-    })
+    });
     obj.displayData = () => `"Model: ${obj.Model}, Year: ${obj.Year}"`;
     return obj.displayData();
 }
@@ -267,13 +274,12 @@ console.log(createObject("toyota", 2020));
 // Input: {name: "Alice", age: 25}, "address"
 // Output: false
 
-function containsSpecificPfop(obj,prop) {
-    if (obj[prop])
-        return true;
-    else
-        return false;
+function containsSpecificPfop(obj, prop) {
+    return (obj[prop]) ? true : false;
+    // or 
+    // return prop in obj;
 }
-console.log(containsSpecificPfop({ name: "Alice", age: 25 }, "address"));
+console.log(containsSpecificPfop({ name: "Alice", age: 25 }, "name"));
 
 // 20. Write a function to count the number of vowels (a, e, i, o, u) in a string, regardless of
 // case.
